@@ -5,7 +5,7 @@ namespace DIO.Bank
 {
     class Program
     {
-        static List<Conta> listConta = new List<Conta>();
+        static List<Conta> listContas = new List<Conta>();
         static void Main(string[] args)
         {
             string opcaoUsuario = ObterOpcaoUsuario();
@@ -15,7 +15,7 @@ namespace DIO.Bank
                 switch (opcaoUsuario)
                 {
                     case "1":
-                        //ListarContas();
+                        ListarContas();
                         break;
 
                     case "2":
@@ -63,11 +63,29 @@ namespace DIO.Bank
             Console.Write("Digite o crédito: ");
             double entradaCredito = double.Parse(Console.ReadLine());
 
-            Conta novaConta = new Conta(tipoConta: (TipoConta)entradaTipoConta,
+            Conta novaConta = new Conta(tipoConta: (TipoConta)entradaTipoConta, // Tipo conta está em (TipoConta) para converter a entrada tipo "int" em "enum TipoConta" 
                                         saldo: entradaSaldo,
                                         credito: entradaCredito,
                                         nome: entradaNome);
-            listConta.Add(novaConta);
+            listContas.Add(novaConta);
+        }
+
+        private static void ListarContas()
+        {
+            Console.WriteLine("Lista de Contas");
+
+            if (listContas.Count == 0)
+            {
+                Console.WriteLine("Nenhuma conta cadastrada.");
+                return;
+            }
+
+            for (int i = 0; i < listContas.Count; i++)
+            {
+                Conta conta = listContas[i];
+                Console.Write("#{0} - ", i);
+                Console.WriteLine(conta);
+            }
         }
         private static string ObterOpcaoUsuario ()
         {
